@@ -1,31 +1,18 @@
 import { useEffect, useState } from "react";
 import { supabase } from "./supabase";
 
-type Trade = {
-  id: string;
-  entry_price: number;
-  exit_price: number;
-  quantity: number;
-  pnl: number;
-  notes: string;
-};
-
 function App() {
   const [user, setUser] = useState<any>(null);
-
   const [isSignup, setIsSignup] = useState(false);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  
-
   useEffect(() => {
     const getUser = async () => {
       const { data } = await supabase.auth.getUser();
       setUser(data.user);
-      if (data.user) fetchTrades(data.user.id);
     };
     getUser();
   }, []);
@@ -71,8 +58,6 @@ function App() {
     await supabase.auth.signOut();
     window.location.reload();
   };
-
-  
 
   if (!user) {
     return (
@@ -151,7 +136,6 @@ function App() {
     <div style={{ padding: 40 }}>
       <h2>Welcome {user.email}</h2>
       <button onClick={signOut}>Logout</button>
-      <h3>Your dashboard is ready.</h3>
     </div>
   );
 }
