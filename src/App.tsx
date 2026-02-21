@@ -19,7 +19,7 @@ function App() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [trades, setTrades] = useState<Trade[]>([]);
+  
 
   useEffect(() => {
     const getUser = async () => {
@@ -72,15 +72,7 @@ function App() {
     window.location.reload();
   };
 
-  const fetchTrades = async (userId: string) => {
-    const { data } = await supabase
-      .from("trades")
-      .select("*")
-      .eq("user_id", userId)
-      .order("created_at", { ascending: false });
-
-    if (data) setTrades(data);
-  };
+  
 
   if (!user) {
     return (
